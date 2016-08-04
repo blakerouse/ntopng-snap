@@ -2,15 +2,20 @@ name: ntopng-blake
 version: dev
 summary: High-speed web-based traffic analysis and flow collection.
 description: ntopng is the next generation version of the original ntop, a network traffic probe that shows the network usage, similar to what the popular top Unix command does.
-confinement: devmode
+confinement: strict
 
 apps:
     ntopng:
         daemon: simple
         command: bin/start-ntopng.sh
+        plugs:
+           - network-bind
+           - network-control
     redis-server:
         daemon: simple
         command: bin/start-redis.sh
+        plugs:
+            - network-bind
 
 parts:
     ndpi:
